@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import os
 from Users.models import Profile
+from django.core.exceptions import ValidationError
 
 
 class Tag(models.Model):
@@ -11,9 +12,18 @@ class Tag(models.Model):
         return self.name
 
 
+def file_size(value):
+    pass
+    # limit = 100 * 1024 * 1024
+    # if value.size > limit:
+    #     raise ValidationError(
+    #         'File too large. Size should not exceed 100 MiB.')
+
+
 class Post(models.Model):
     caption = models.TextField(max_length=500)
-    file = models.FileField(upload_to='files', null=True, blank=True)
+    file = models.FileField(upload_to='files', null=True,
+                            blank=True, validators=[file_size])
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     dislikes = models.ManyToManyField(
         User, related_name='dislikes', blank=True)
@@ -23,7 +33,8 @@ class Post(models.Model):
     tag = models.ManyToManyField(
         Tag, related_name='tag', blank=True)
     archive = models.BooleanField(default=False)
-    save_post = models.ManyToManyField(User, related_name='save_post', blank=True)
+    save_post = models.ManyToManyField(
+        User, related_name='save_post', blank=True)
 
     def __str__(self):
         return self.caption

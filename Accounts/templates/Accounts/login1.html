@@ -29,7 +29,7 @@
     {% render_field form.username placeholder="Email / Username" autocomplete="off" %}
     {% render_field form.password placeholder="Password" autocomplete="off" %}
     {% if form.errors %}
-    <span>{{ form.non_field_errors }}</span>
+    <span style="margin-top: 10px; font-size: 12px;color: rgb(223, 58, 58);">{{ form.non_field_errors }}</span>
     {% endif %}
     <a href="">Forgot Password?</a>
     <button type="submit" class="loginbtn">Login</button>

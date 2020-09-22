@@ -92,23 +92,22 @@ def edit_profile(request):
     return render(request, 'Users/edit_profile.html', context)
 
 
-# @login_required
-# def change_password(request):
-#     if request.method == 'POST':
-#         form = PasswordChangeForm(request.user, request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             update_session_auth_hash(request, user)
-#             messages.success(
-#                 request, 'Your password was successfully updated!')
-#             return redirect('manage-profile')
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('profile')
 
-#     else:
-#         form = PasswordChangeForm(request.user)
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, 'Users/change_password.html', context)
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {
+        'form': form,
+    }
+    return render(request, 'Users/change_password.html', context)
+
 
 @login_required
 def archive(request):

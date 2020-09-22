@@ -16,11 +16,6 @@
       <h4><a href="{% url 'profile' notify.sender.userprofile.user %}">@{{notify.sender}}</a> followed you.</h4>
       <span>{{ notify.created|naturaltime }}</span>
     </div>
-    {% if notify.post.image %}
-    <img src="{{ notify.post.image.url }}" alt="">
-    {% else %}
-    <img src="" alt="">
-    {% endif %}
     <a href="{% url 'delete-notification' notify.id %}"><i class="fas fa-times-circle"></i></a>
   </div>
   {% endif %}
@@ -34,17 +29,38 @@
     <div class="notify-info">
       <h4><a href="{% url 'profile' notify.sender.userprofile.user %}">@{{ notify.sender }}</a> liked your post.</h4>
       <span>{{ notify.created|naturaltime }}</span>
+      <br>
+      <a style='color: blue;' href="{% url 'detail' notify.post.id %}">See post</a>
     </div>
-    {% if notify.post.file %}
-
-    <a href="{% url 'detail' notify.post.id %}"><img src="{{ notify.post.image.url }}" alt=""></a>
-    {% else %}
-    <img src="" alt="">
-    {% endif %}
 
     <a href="{% url 'delete-notification' notify.id %}"><i class="fas fa-times-circle"></i></a>
   </div>
   {% endif %}
+
+
+  {% if notify.notification_type == 'comment' %}
+
+  <div class="single-notification">
+    <a href="{% url 'profile' notify.sender.userprofile.user %}"><img src="{{ notify.sender.userprofile.image.url }}"
+        alt=""></a>
+
+    <div class="notify-info">
+      <h4><a style='word-break: break-all;'
+          href="{% url 'profile' notify.sender.userprofile.user %}">@{{ notify.sender }}</a>
+        commented
+        "{{ notify.preview|truncatechars:50 }}" on your post.
+      </h4>
+      <span>{{ notify.created|naturaltime }}</span>
+      <br>
+      <a style='color: blue;' href="{% url 'detail' notify.post.id %}">See post</a>
+    </div>
+
+
+    <a href="{% url 'delete-notification' notify.id %}"><i class="fas fa-times-circle"></i></a>
+  </div>
+  {% endif %}
+
+
 
   {% endfor %}
 

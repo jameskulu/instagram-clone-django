@@ -3,7 +3,6 @@ from .models import Notification
 
 
 def notification(request):
-
     notification = Notification.objects.filter(
         receiver=request.user).order_by('-created')
     Notification.objects.filter(

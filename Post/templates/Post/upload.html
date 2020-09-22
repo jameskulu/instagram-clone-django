@@ -9,6 +9,11 @@
   <div class="image">
     <label for="">Image/Video</label>
     {% render_field form.file %}
+
+    {% if form.errors %}
+    <span style='color:red;'>{{ form.errors.file }}</span>
+    {% endif %}
+
   </div>
   <div class="caption">
     <label for="">Caption</label>

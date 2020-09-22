@@ -168,8 +168,6 @@ main{
   margin-right: 15px;
 }
 .comment-section .single-comment .user-comment{
-  width: 90%;
-  height: 100%;
 }
 .comment-section .single-comment .user-comment p{
   margin: 0px;
@@ -380,7 +378,6 @@ main{
 .single-notification{
   display: flex;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
   background-color: #FBFBFB;
   padding: 20px;
@@ -389,7 +386,7 @@ main{
   z-index: 1;
   margin-bottom: 20px;
 }
-.single-notification img:first-child{
+.single-notification img{
   height: 100px;
   width: 100px;
   border-radius: 50%;
@@ -397,11 +394,7 @@ main{
   border: 1px solid rgb(199, 199, 199);
 }
 .single-notification .notify-info{
-  margin-left: -160px;
-}
-.single-notification img:nth-of-type(1){
-  height: 100px;
-  object-fit: contain;
+  margin-left: 20px;
 }
 .single-notification .fa-times-circle{
   position: absolute;
@@ -449,6 +442,7 @@ main{
 }
 .upload label{
   margin-bottom: 5px;
+  font-weight: bold;
 }
 .notification-icon{
   position: relative;
@@ -464,7 +458,6 @@ main{
   background-color: red;
   position: absolute;
 }
-
 .search-page{
   width: 70%;
   margin: auto;
@@ -494,7 +487,6 @@ main{
 .single-search-item a{
   color: blue;
 }
-
 .edit-profile{
   width: 500px;
   margin:auto;
@@ -503,7 +495,6 @@ main{
   display: flex;
   flex-direction: column;
 }
-
 .edit-profile .image, .edit-profile .username, .edit-profile .bio{
   display: flex;
   flex-direction: column;
@@ -526,4 +517,8 @@ main{
   cursor: pointer;
   font-weight: bold;
   margin-top: 20px;
+}
+
+.errorlist{
+  list-style: none;
 }

@@ -2,7 +2,7 @@ from django.db.models.signals import post_save, m2m_changed
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from .models import Profile
-from Post.models import Post
+from Post.models import Post, Comment
 from Notification.models import Notification
 from datetime import datetime
 from django.db.models import Q
@@ -85,3 +85,11 @@ def dislike_notification(sender, instance,  action, pk_set, reverse, **kwargs):
             if User.objects.get(username=i.user) in instance.likes.all():
                 instance.likes.remove(
                     User.objects.get(username=i.user))
+
+
+@receiver(post_save, sender=Comment)
+def comment_notification(sender, instance, created, **kwargs):
+    if created:
+        if instance.user != instance.post.user.user:
+            Notification.objects.create(
+                sender=instance.user, receiver=instance.post.user.user, notification_type='comment', post=instance.post, preview=instance.content)

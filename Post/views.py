@@ -12,8 +12,7 @@ from django.http import HttpResponse
 
 @login_required
 def index(request):
-    posts_count = Post.objects.filter(archive=False).count()
-    users = User.objects.exclude(username=request.user)
+    users = User.objects.exclude(username=request.user)[:5]
     profile = Profile.objects.get(user=request.user)
     followed_user = [
         followed_user for followed_user in profile.following.all()]
@@ -38,6 +37,12 @@ def index(request):
         paginated_post = paginator.page(1)
     except EmptyPage:
         paginated_post = paginator.page(paginator.num_pages)
+
+    posts_count = 0
+    for a in qs:
+        post = Post.objects.get(id=a.id)
+        if post.archive == False:
+            posts_count += 1
 
     context = {
         'all_posts': paginated_post,
@@ -84,6 +89,7 @@ def upload(request):
         if form.is_valid():
             caption = form.cleaned_data.get('caption')
             file = form.cleaned_data.get('file')
+
             tags_form = form.cleaned_data.get('tag')
             tags_list = list(tags_form.split(','))
 
@@ -101,7 +107,7 @@ def upload(request):
             return redirect('home')
     form = PostForm()
     context = {
-        'form': form
+        'form': form,
     }
     return render(request, 'Post/upload.html', context)
 

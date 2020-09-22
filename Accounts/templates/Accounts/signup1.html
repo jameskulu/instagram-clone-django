@@ -24,14 +24,15 @@
     {% render_field form.last_name class="signup-input" placeholder="Last Name"%}
     {% render_field form.username class="signup-input" placeholder="Username"%}
     {% if form.errors %}
-    <span>{{form.errors.username}}</span>
+    <span
+      style="margin-top: 10px; font-size: 12px;color: rgb(223, 58, 58); list-style: none;">{{form.errors.username}}</span>
     {% endif %}
     {% render_field form.email class="signup-input" placeholder="Email"%}
     {% render_field form.password1 class="signup-input" placeholder="Password"%}
     {% render_field form.password2 class="signup-input" placeholder="Confirm Password"%}
     {% if form.errors %}
-    <span>{{form.errors.password1}}</span>
-    <span>{{form.errors.password2}}</span>
+    <span style="margin-top: 10px; font-size: 12px;color: rgb(223, 58, 58);">{{form.errors.password1}}</span>
+    <span style="margin-top: 10px; font-size: 12px;color: rgb(223, 58, 58);">{{form.errors.password2}}</span>
     {% endif %}
     <button class="loginbtn">Sign up</button>
     <a href="{% url 'login' %}">Already have an account?</a>

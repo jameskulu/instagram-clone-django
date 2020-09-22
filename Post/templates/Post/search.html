@@ -6,7 +6,7 @@
 
 
 <div class="search-page">
-  <h1 style='margin-bottom: 20px;'>Search Results for "{{ value }}"</h1>
+  <h1 style='margin-bottom: 20px;'>Search Results for "{{ value|truncatechars:50 }}"</h1>
   {% for u in users %}
   <div class="single-search-item">
     <div class="search-user-info">

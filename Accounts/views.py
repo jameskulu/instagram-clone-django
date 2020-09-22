@@ -33,12 +33,12 @@ def signup(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            return HttpResponseRedirect(reverse('email-confirmation'))
+
             request.session['emailConfirm'] = form.cleaned_data.get('email')
             current_site = get_current_site(request)
 
             # For Email Confirmation
-            mail_subject = 'Activate your Bookland account.'
+            mail_subject = 'Activate your Jistagram account.'
             message = render_to_string('Accounts/acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -50,6 +50,7 @@ def signup(request):
                 mail_subject, message, to=[to_email]
             )
             email.send()
+            return HttpResponseRedirect(reverse('email-confirmation'))
 
     return render(request, 'Accounts/signup1.html', {'form': form})
 
@@ -79,7 +80,7 @@ def activate(request, uidb64, token):
         user = None
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
-        user.profile.email_confirmed = True
+        user.userprofile.email_confirmed = True
         user.save()
         auth.login(request, user,
                    backend='django.contrib.auth.backends.ModelBackend')
