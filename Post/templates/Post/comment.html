@@ -1,0 +1,29 @@
+<div class="comment-section">
+  <!-- |dictsortreversed:"date_created"  -->
+  {% for comment in post.comment_set.all|dictsort:"date_created"|slice:":2"%}
+  <div class="single-comment">
+    <a href="{% url 'profile' comment.user.userprofile.user %}"><img src="{{ comment.user.userprofile.image.url }}"
+        alt=""></a>
+    <div class="user-comment">
+      <a href="{% url 'profile' comment.user.userprofile.user %}">
+        <h3>@{{ comment.user }}</h3>
+      </a>
+      <p>{{ comment.content }}</p>
+    </div>
+    {% if comment.user == user %}
+    <div class="delete-comment">
+      <a href="{% url 'delete-comment' comment.id %}"><i style='color: rgb(207, 46, 46);'
+          class='fas fa-trash-alt'></i></a>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+
+
+
+  <form class="comment-input" action="{% url 'comment' post.id %}" method='POST'>
+    {% csrf_token %}
+    <input required type="text" name="comment-input" id="" placeholder="Add a comment">
+    <button>Post</button>
+  </form>
+</div>

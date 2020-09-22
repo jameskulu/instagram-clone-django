@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Jistagram</title>
+  <script src="https://kit.fontawesome.com/ca6a0dd669.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+  <header>
+    <div class="inner-header">
+      <div class="logo">
+        <a href="{% url 'home' %}"><img src="{% static 'images/logo.PNG' %}" alt=""></a>
+      </div>
+      <div class="nav">
+        <ul>
+          <li><a href="{% url 'upload' %}"><i class="fas fa-plus-square"></i></a></li>
+          <li><a href="{% url 'home' %}"><i class="fas fa-home"></i></a></li>
+
+          <li>
+            <div class="notification-icon">
+              <a href="{% url 'notification' %}"><i class="fas fa-bell"></i>
+                {% if notification_count %}
+                <span>{{ notification_count.count }}</span>
+                {% endif %}
+              </a>
+            </div>
+          </li>
+          <li><a href="{% url 'profile' request.user %}"><i class="fas fa-user"></i></a></li>
+        </ul>
+      </div>
+      <form method="GET" class="search" action="{% url 'search' %}">
+        <input type="text" name='s' placeholder="Search..">
+        <button style="background: none; border: none;"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </header>
+
+  <main>
+
+    {% block content %}
+    {% endblock content %}
+
+  </main>
+
+  <script src="{% static 'scripts/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="tags-info">
+  <h1>#{{ tag_slug }}</h1>
+  <h3>{{ tags_count }} post{{ tags_count|pluralize }}</h3>
+</div>
+
+
+<div style='margin:auto; margin-top:5rem;' class="posts infinite-container">
+
+  {% for post in tags %}
+  {% if not post.archive %}
+  {% include 'Post/single-post.html' %}
+  {% endif %}
+  {% endfor %}
+
+
+  {% if tags_count == 0 %}
+  <div style='text-align: center;' class="profile-icon-div">
+    <h1>No Posts</h1>
+    <i style='margin-top:20px;font-size: 80px;' class="fas fa-folder-plus"></i>
+  </div>
+  {% endif %}
+</div>
+
+{% if tags.has_next %}
+<a class='infinite-more-link' href="?page={{ tags.next_page_number }}">Loading...</a>
+{% endif %}
+
+<script src="{% static 'scripts/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'scripts/infinite.min.js' %}"></script>
+<script>
+
+  var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0],
+
+    offset: 'bottom-in-view',
+
+    onBeforePageLoad: function () {
+      $('.loading').show();
+    },
+    onAfterPageLoad: function () {
+      $('.loading').hide();
+    }
+  });
+</script>
+
+{% endblock content %}

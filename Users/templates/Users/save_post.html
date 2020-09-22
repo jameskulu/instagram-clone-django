@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<h1 style='text-align: center;'>Saved posts ({{ posts.count }})</h1>
+
+<div style='margin:auto; margin-top:5rem;' class="posts infinite-container">
+
+  {% for post in posts %}
+
+
+  {% include 'Post/single-post.html' %}
+
+
+  {% endfor %}
+</div>
+
+{% if tags.has_next %}
+<a class='infinite-more-link' href="?page={{ tags.next_page_number }}">Loading...</a>
+{% endif %}
+
+<script src="{% static 'scripts/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'scripts/infinite.min.js' %}"></script>
+<script>
+
+  var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0],
+
+    offset: 'bottom-in-view',
+
+    onBeforePageLoad: function () {
+      $('.loading').show();
+    },
+    onAfterPageLoad: function () {
+      $('.loading').hide();
+    }
+  });
+</script>
+
+{% endblock content %}

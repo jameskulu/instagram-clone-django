@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+
+
+<div class="search-page">
+  <h1 style='margin-bottom: 20px;'>Search Results for "{{ value }}"</h1>
+  {% for u in users %}
+  <div class="single-search-item">
+    <div class="search-user-info">
+      <a href="{% url 'profile' u.userprofile.user %}"><img src="{{ u.userprofile.image.url }}" alt=""></a>
+      <a href="{% url 'profile' u.userprofile.user %}">
+        <h4 style="color: rgb(39, 39, 39);">@{{ u.username }}</h4>
+      </a>
+    </div>
+
+    {% if u != user %}
+    <form action="{% url 'follow-unfollow' %}" method="POST">
+      {% csrf_token %}
+      <input type="hidden" value='{{u.userprofile.id}}' name='follow-btn'>
+      {% if u in user.userprofile.following.all %}
+      <button style='background: none;
+        outline: none;
+        border: none;
+        color: red;
+        cursor: pointer;'>Unfollow</button>
+      {% else %}
+      <button style='background: none;
+        outline: none;
+        border: none;
+        color: blue;
+        cursor: pointer;'>Follow</button>
+      {% endif %}
+    </form>
+    {% endif %}
+  </div>
+  {% endfor %}
+
+  {% if not users %}
+  <h4>No users found</h4>
+  {% endif %}
+
+</div>
+
+
+
+{% endblock content %}

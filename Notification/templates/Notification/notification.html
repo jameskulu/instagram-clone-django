@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<div class="notification">
+
+  {% if notification %}
+  {% for notify in notification %}
+
+  {% if notify.notification_type == 'follow' %}
+  <div class="single-notification">
+    <a href="{% url 'profile' notify.sender.userprofile.user %}"><img src="{{ notify.sender.userprofile.image.url }}"
+        alt=""></a>
+    <div class="notify-info">
+      <h4><a href="{% url 'profile' notify.sender.userprofile.user %}">@{{notify.sender}}</a> followed you.</h4>
+      <span>{{ notify.created|naturaltime }}</span>
+    </div>
+    {% if notify.post.image %}
+    <img src="{{ notify.post.image.url }}" alt="">
+    {% else %}
+    <img src="" alt="">
+    {% endif %}
+    <a href="{% url 'delete-notification' notify.id %}"><i class="fas fa-times-circle"></i></a>
+  </div>
+  {% endif %}
+
+  {% if notify.notification_type == 'like' %}
+
+  <div class="single-notification">
+    <a href="{% url 'profile' notify.sender.userprofile.user %}"><img src="{{ notify.sender.userprofile.image.url }}"
+        alt=""></a>
+
+    <div class="notify-info">
+      <h4><a href="{% url 'profile' notify.sender.userprofile.user %}">@{{ notify.sender }}</a> liked your post.</h4>
+      <span>{{ notify.created|naturaltime }}</span>
+    </div>
+    {% if notify.post.file %}
+
+    <a href="{% url 'detail' notify.post.id %}"><img src="{{ notify.post.image.url }}" alt=""></a>
+    {% else %}
+    <img src="" alt="">
+    {% endif %}
+
+    <a href="{% url 'delete-notification' notify.id %}"><i class="fas fa-times-circle"></i></a>
+  </div>
+  {% endif %}
+
+  {% endfor %}
+
+  {% else %}
+
+  <h1 style='text-align: center;'>No Notifications</h1>
+
+  {% endif %}
+
+</div>
+
+{% endblock content %}

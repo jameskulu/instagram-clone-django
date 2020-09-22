@@ -1,0 +1,107 @@
+{% load humanize %}
+
+
+<div class="single-post infinite-item">
+  <div class="user-info">
+
+    <a href="{% url 'profile' post.user.user.userprofile.user %}"><img src="{{ post.user.user.userprofile.image.url }}"
+        alt=""></a>
+
+    <div class="name-and-time">
+      <a href="{% url 'profile' post.user.user.userprofile.user %}">
+        <h3>@{{ post.user.user }}</h3>
+      </a>
+      <span>{{ post.date_created|naturaltime }}</span>
+    </div>
+    <div class="update-delete">
+      <span title='Save'><a style='margin-right: 5px;' href="{% url 'save' post.id %}">
+          {% if user in post.save_post.all  %}
+          <i class="fas fa-bookmark"></i>
+          {% else %}
+          <i class="far fa-bookmark"></i>
+          {% endif %}
+
+        </a></span>
+      {% if post.user.user == user %}
+
+      <span title='Archive'><a style='margin-right: 5px;' href="{% url 'archive-toggle' post.id %}"
+          {% if post.archive == False %} onclick="return confirm('Are you sure you want to archive this post?');"
+          {% else %} onclick="return confirm('Are you sure you want to remove this post from archive?');" {% endif %}><i
+            class="fas fa-archive"></i></a></span>
+      <span title='Edit'><a style="cursor: pointer;" href="{% url 'update' post.id %}"><i
+            class="fas fa-edit"></i></a></span>
+      <span title='Delete'><a href="{% url 'delete' post.id %}"
+          onclick="return confirm('Are you sure you want to delete this post?');"><i style='color: rgb(207, 46, 46);'
+            class="fas fa-trash-alt"></i></a></span>
+      {% endif %}
+    </div>
+
+
+  </div>
+
+  {% if post.file %}
+  {% if post.extension == '.jpg' or post.extension == '.png' %}
+  <div class='uploaded-image'>
+    <img src="{{ post.file.url }}" alt="">
+  </div>
+  {% endif %}
+
+
+  {% if post.extension == '.mp3' or post.extension == '.mov' %}
+  <video style='margin-top: 10px; outline: none;' width="100%" controls>
+    <source src='{{ post.file.url }}' type='video/mp4'>
+    Your browser does not support the video tag.
+  </video>
+  {% endif %}
+  {% endif %}
+
+
+  <p>{{ post.caption|truncatechars:150 }}
+    {% if post.caption|length > 150 %}
+    <a style="color:blue;" href="{% url 'detail' post.id %}">
+      <p style='word-break: normal; display: inline;'>See More</p>
+    </a>
+    {% endif %}
+  </p>
+
+
+  {% for tag in post.tag.all %}
+  {% if tag.name %}
+  <span><a style='color:blue;' href="{% url 'tag' tag.name %}">#{{ tag }}</a></span>
+  {% endif %}
+  {% endfor %}
+
+
+  <div class="like-dislike-comment-btn">
+    <form style='display: inline;' action="{% url 'likes' %}" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name='like_name' value="{{ post.id }}">
+      {% if user in post.likes.all %}
+      <span title='Like'><button><i style='color:blue;' class="fas fa-thumbs-up"></i></button></span>
+      {% else %}
+      <span title='Like'><button><i class="fas fa-thumbs-up"></i></button></span>
+      {% endif %}
+    </form>
+    <span>{{ post.likes.count }}</span>
+    <form style='display: inline;' action="{% url 'dislikes' %}" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name='dislike_name' value="{{ post.id }}">
+      {% if user in post.dislikes.all %}
+      <span title='Dislike'><button class='dislike-btn'><i style='color:blue;'
+            class="fas fa-thumbs-down"></i></button></span>
+      {% else %}
+      <span title='Dislike'><button class='dislike-btn'><i class="fas fa-thumbs-down"></i></button></span>
+      {% endif %}
+    </form>
+    <span>{{ post.dislikes.count }}</span>
+    <i class="fas fa-comment"></i>
+  </div>
+
+  {% if post.comment_set.all.count > 2 %}
+  <p><a href="{% url 'detail' post.id %}">View all comments</a></p>
+  {% endif %}
+
+  {% include 'Post/comment.html' %}
+
+
+</div>

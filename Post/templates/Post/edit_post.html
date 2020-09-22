@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load widget_tweaks %}
+
+<form method="POST" enctype="multipart/form-data" class="upload">
+  {% csrf_token %}
+  <h1>Upload</h1>
+  <div class="image">
+    <label for="">Image</label>
+    {% render_field form.image %}
+  </div>
+  <div class="caption">
+    <label for="">Caption</label>
+    {% render_field form.caption %}
+  </div>
+  <div class="tags">
+    <label for="">Tags (Enter comma seperated values)</label>
+    {% render_field form.tag %}
+  </div>
+  <button>Post</button>
+</form>
+
+
+{% endblock content %}

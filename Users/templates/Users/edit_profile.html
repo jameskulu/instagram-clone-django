@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<form method="POST" enctype="multipart/form-data" class="edit-profile">
+    {% csrf_token %}
+    <h1 style='text-align: center;'>Edit Profile</h1>
+    <div class="username">
+        <label for="">Username</label>
+        {% render_field user_form.username %}
+        <span style='color: red;'>{{message}}</span>
+    </div>
+    <div class="image">
+        <label for="">Image</label>
+        {% render_field profile_form.image %}
+    </div>
+    <div class="bio">
+        <label for="">Bio</label>
+        {% render_field profile_form.bio %}
+    </div>
+    <button>Update</button>
+</form>
+
+
+{% endblock content %}

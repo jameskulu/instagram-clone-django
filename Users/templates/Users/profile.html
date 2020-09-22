@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<div class="profile-info">
+
+  <div class="followers">
+    <h1>Followers</h1>
+    <h2>{{users.userprofile.follower.count}}</h2>
+  </div>
+  <div class="name-with-bio">
+    <img src="{{ users.userprofile.image.url }}" alt="">
+    <h2>@{{ users }}</h2>
+    <p>{{ users.userprofile.bio }}</p>
+    {% if not users == request.user %}
+    <form action="{% url 'follow-unfollow' %}" method="POST">
+      {% csrf_token %}
+      <input type="hidden" value='{{users.userprofile.id}}' name='follow-btn'>
+      {% if follow %}
+      <button style='background-color: red;'>Unfollow</button>
+      {% else %}
+      <button>Follow</button>
+      {% endif %}
+    </form>
+    {% else %}
+    <a href="{% url 'edit-profile' %}"><button>Edit Profile</button></a>
+
+    <i id='settings-btn' class="fas fa-cog"></i>
+    {% endif %}
+  </div>
+  <div class="following">
+    <h1>Following</h1>
+    <h2>{{users.userprofile.following.count}}</h2>
+  </div>
+
+</div>
+
+<div id='outer-settings' class="outer-settings">
+
+</div>
+
+<div id='settings' class="settings">
+  <ul>
+    <li><a href="">Change Password</a></li>
+    <li><a href="{% url 'archive' %}">Archive</a></li>
+    <li><a href="{% url 'save-posts' %}">Saved</a></li>
+    <li><a href="{% url 'logout' %}">Log Out</a></li>
+  </ul>
+
+</div>
+
+<h2 style="margin-top: 8rem; text-align: center;">({{ posts_count }}) Posts from @{{ users }}</h2>
+
+<div style='margin:auto; margin-top:5rem;' class="posts infinite-container">
+  {% for post in posts %}
+  {% if not post.archive %}
+  {% include 'Post/single-post.html' %}
+  {% endif %}
+  {% endfor %}
+
+
+  {% if posts_count == 0 %}
+
+  <div style='text-align: center;' class="profile-icon-div">
+    <h1>No Posts</h1>
+    <i style='margin-top:20px;font-size: 80px;' class="fas fa-folder-plus"></i>
+  </div>
+  {% endif %}
+</div>
+
+
+{% if posts.has_next %}
+<a class='infinite-more-link' href="?page={{ posts.next_page_number }}">Loading...</a>
+{% endif %}
+
+
+
+<script src="{% static 'scripts/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'scripts/infinite.min.js' %}"></script>
+<script>
+
+  var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0],
+
+    offset: 'bottom-in-view',
+
+    onBeforePageLoad: function () {
+      $('.loading').show();
+    },
+    onAfterPageLoad: function () {
+      $('.loading').hide();
+    }
+  });
+</script>
+
+{% endblock content %}

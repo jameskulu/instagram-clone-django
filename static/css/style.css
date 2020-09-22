@@ -1,0 +1,529 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+*,
+*::before,
+*::after{
+  padding: 0;
+  margin:0;
+  box-sizing: border-box;
+}
+body{
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+button{
+  font-family: 'Poppins', sans-serif;
+}
+a{
+  text-decoration: none;
+  color: rgb(19, 19, 19);
+}
+header{
+  width: 100%;
+  height: 100px;
+  border-bottom: 0.4px solid rgb(219, 219, 219);
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 999;
+}
+header .inner-header{
+  width: 85%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .inner-header .logo{
+  flex: 1;
+}
+header .inner-header .logo img{
+  height: 60px;
+}
+header .inner-header .nav{
+  flex: 2;
+}
+header .inner-header .nav ul{
+  display: flex;
+  list-style: none;
+  justify-content: space-evenly;
+}
+header .inner-header .nav ul li i{
+  font-size: 35px;
+  color: rgb(24, 24, 24);
+}
+header .inner-header .search{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+header .inner-header .search input{
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  padding: 7px 15px;
+  outline: none;
+}
+header .inner-header .search i{
+  top: 8px;
+  right: 2px;
+  position: absolute;
+  cursor: pointer;
+}
+main{
+  width: 85%;
+  margin: auto;
+  margin-top: 10rem;
+}
+.main-home{
+  display: flex;
+  gap: 13rem;
+}
+.posts{
+  width: 55%;
+}
+.posts .single-post{
+  width: 100%;
+  margin-bottom: 50px;
+  padding: 15px;
+  background-color: rgb(243, 243, 243);
+}
+.posts .single-post .user-info{
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.update-delete{
+  position: absolute;
+  right: 0;
+}
+.update-delete i:first-child{
+  margin-right: 5px;
+} 
+.posts .single-post .user-info img{
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: contain;
+  border: 1px solid rgb(199, 199, 199);
+}
+.posts .single-post .user-info span{
+  color: rgb(206, 206, 206);
+}
+.posts .single-post .uploaded-image{
+  margin-top: 15px;
+  height: 400px;
+  width: 100%;
+}
+.posts .single-post .uploaded-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.posts .single-post p{
+  margin-top: 15px;
+  color: rgb(53, 53, 53);
+  word-break: normal;
+}
+.posts .single-post .like-dislike-comment-btn{
+  margin-top: 10px;
+}
+.posts .single-post .like-dislike-comment-btn i{
+  font-size: 25px;
+  color: rgb(37, 37, 37);
+  cursor: pointer;
+}
+.posts .single-post .like-dislike-comment-btn button{
+  border: none;
+  outline: none;
+  background: none;
+}
+.posts .single-post .like-dislike-comment-btn .dislike-btn{
+  margin-left: 15px;
+}
+.posts .single-post .like-dislike-comment-btn .fa-comment{
+   margin-left: 15px;
+}
+.comment-section{
+  width: 100%;
+  margin-top: 20px;
+}
+.comment-section .single-comment{
+  display: flex;
+  margin-bottom: 15px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.comment-section img{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: contain;
+  border: 1px solid rgb(199, 199, 199);
+  margin-right: 15px;
+}
+.comment-section .single-comment .user-comment{
+  width: 90%;
+  height: 100%;
+}
+.comment-section .single-comment .user-comment p{
+  margin: 0px;
+  width: 100%;
+  word-break: break-all;
+  height: 100%;
+}
+.delete-comment{
+  position: absolute;
+  right: 10px;
+}
+.comment-section .comment-input{
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+}
+.comment-section .comment-input input{
+  padding: 20px 15px;
+  width: 80%;
+  outline: none;
+}
+.comment-section .comment-input button{
+  padding: 20px 15px;
+  width:19%;
+  outline: none;
+  border: none;
+  background-color: #405AFF;
+  color: white;
+  margin-left: -5px;
+  cursor: pointer;
+}
+.people-you-may-know{
+  width: 30%;
+  position: fixed;
+  right: 8%;
+  background-color:rgb(245, 245, 245);
+  padding: 10px 15px;
+}
+.people{
+  width: 100%;
+}
+.people .single-people{
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.single-people img{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: contain;
+  border: 1px solid rgb(199, 199, 199);
+}
+.people .single-people h4{
+  margin-left: -120px;
+  color: rgb(32, 32, 32);
+}
+.people .single-people a{
+  text-decoration: none;
+  color:#405AFF;
+}
+
+/* Profile Page */
+.profile-info{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  position: relative;
+}
+.profile-info h1{
+  font-size: 40px;
+}
+.profile-info .followers,.profile-info .following{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-info .name-with-bio{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 310px;
+  justify-content: space-between;
+}
+.profile-info .name-with-bio img{
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  object-fit: contain;
+  border: 1px solid rgb(199, 199, 199);
+}
+.profile-info .name-with-bio h2{
+  font-size: 30px;
+}
+.profile-info .name-with-bio button{
+  padding: 10px 30px;
+  background-color: #405AFF;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  border-radius: 10px;
+}
+.profile-info .name-with-bio i{
+  color: rgb(15, 15, 15);
+  font-size: 25px;
+  cursor: pointer;
+  position: absolute;
+  bottom: -60px;
+}
+.outer-settings{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+}
+.settings{
+  position: fixed;
+  top:200px;
+  left:40%;
+  height: 200px;
+  width: 300px;
+  display: none;
+}
+.settings ul{
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+} 
+.settings li{
+  background-color: white;
+  border-bottom: 1px solid black;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.settings li:first-child{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.settings li:last-child{
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border: none;
+}
+.login-header{
+  width: 100%;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-header img{
+  height: 100px;
+}
+.login-body,.signup-body{
+  height: 250px;
+  margin: 6rem auto 0 auto;
+  width: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.signup-body{
+  height: 350px;
+}
+.login-body input,.signup-body input{
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  outline: none;
+  padding: 7px 2px;
+  width: 300px;
+}
+.login-body a,.signup-body a{
+  text-align: right !important;
+}
+.login-body button,.signup-body button{
+  padding: 10px 20px;
+  background-color: #405AFF;
+  outline: none;
+  font-weight: bold;
+  border: none;
+  color: white;
+  width: 300px;
+  cursor: pointer;
+}
+.tags-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.notification{
+  width: 60%;
+  height: 100%;
+  margin: auto;
+}
+.single-notification{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #FBFBFB;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 20px;
+}
+.single-notification img:first-child{
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  object-fit: contain;
+  border: 1px solid rgb(199, 199, 199);
+}
+.single-notification .notify-info{
+  margin-left: -160px;
+}
+.single-notification img:nth-of-type(1){
+  height: 100px;
+  object-fit: contain;
+}
+.single-notification .fa-times-circle{
+  position: absolute;
+  top:-3px;
+  right: -3px;
+  cursor: pointer;
+  font-size: 20px;
+}
+.upload{
+  margin: auto;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 550px;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+.upload .caption,.upload .image,.upload .tags{
+  display: flex;
+  flex-direction: column;
+}
+.upload .image{
+  width: 500px;
+}
+.upload .caption textarea{
+  width: 500px;
+  padding: 10px;
+  resize: none;
+}
+.upload .tags input{
+  width: 500px;
+  padding: 10px 10px;
+}
+.upload button{
+  width: 500px;
+  padding: 10px 0;
+  outline: none;
+  border: none;
+  background-color: #405AFF;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 20px;
+}
+.upload label{
+  margin-bottom: 5px;
+}
+.notification-icon{
+  position: relative;
+}
+.notification-icon a span{
+  top: -15px;
+  left:20px;
+  color: white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  background-color: red;
+  position: absolute;
+}
+
+.search-page{
+  width: 70%;
+  margin: auto;
+  height: 100%;
+}
+.single-search-item{
+  display: flex;
+  padding: 20px 40px;
+  background-color: rgb(247, 247, 247);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.search-user-info{
+  display: flex;
+  align-items: center;
+}
+.search-user-info img{
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  object-fit: contain;
+}
+.search-user-info h4{
+  margin-left: 20px;
+}
+.single-search-item a{
+  color: blue;
+}
+
+.edit-profile{
+  width: 500px;
+  margin:auto;
+  justify-content: space-between;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-profile .image, .edit-profile .username, .edit-profile .bio{
+  display: flex;
+  flex-direction: column;
+}
+.edit-profile label{
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.edit-profile input{
+  width: 500px;
+  padding: 10px 10px;
+}
+.edit-profile button{
+  width: 500px;
+  padding: 10px 0;
+  outline: none;
+  border: none;
+  background-color: #405AFF;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 20px;
+}

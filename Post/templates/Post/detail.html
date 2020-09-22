@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div style='margin:auto; margin-top:5rem;' class="posts">
+
+
+  <!-- 1st post -->
+  <div class="single-post">
+    <div class="user-info">
+
+      <a href="{% url 'profile' post.user.user.userprofile.user %}"><img
+          src="{{ post.user.user.userprofile.image.url }}" alt=""></a>
+
+      <div class="name-and-time">
+        <a href="{% url 'profile' post.user.user.userprofile.user %}">
+          <h3>@{{ post.user.user }}</h3>
+        </a>
+        <span>{{ post.date_created|naturaltime }}</span>
+      </div>
+    </div>
+
+    {% if post.image %}
+    <div class='uploaded-image'>
+      <img class='uploaded-image' src="{{ post.image.url }}" alt="">
+    </div>
+    {% endif %}
+
+    <p>{{ post.caption }}</p>
+    {% for tag in post.tag.all %}
+    {% if tag.name %}
+    <span><a style='color:blue;' href="{% url 'tag' tag.name %}">#{{ tag }}</a></span>
+    {% endif %}
+    {% endfor %}
+
+    <div class="like-dislike-comment-btn">
+      <form style='display: inline;' action="{% url 'likes' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name='like_name' value="{{ post.id }}">
+        {% if user in post.likes.all %}
+        <button><i style='color:blue;' class="fas fa-thumbs-up"></i></button>
+        {% else %}
+        <button><i class="fas fa-thumbs-up"></i></button>
+        {% endif %}
+      </form>
+      <span>{{ post.likes.count }}</span>
+      <form style='display: inline;' action="{% url 'dislikes' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name='dislike_name' value="{{ post.id }}">
+        {% if user in post.dislikes.all %}
+        <button class='dislike-btn'><i style='color:blue;' class="fas fa-thumbs-down"></i></button>
+        {% else %}
+        <button class='dislike-btn'><i class="fas fa-thumbs-down"></i></button>
+        {% endif %}
+      </form>
+      <span>{{ post.dislikes.count }}</span>
+      <i class="fas fa-comment"></i>
+    </div>
+
+
+    <div class="comment-section">
+
+      <div class="comment-section">
+        {% for comment in post.comment_set.all %}
+        <div class="single-comment">
+          <a href="{% url 'profile' comment.user.userprofile.user %}"><img
+              src="{{ comment.user.userprofile.image.url }}" alt=""></a>
+          <div class="user-comment">
+            <a href="{% url 'profile' comment.user.userprofile.user %}">
+              <h3>@{{ comment.user }}</h3>
+            </a>
+            <p>{{ comment.content }}</p>
+          </div>
+          {% if comment.user == user %}
+          <div class="delete-comment">
+            <a href="{% url 'delete-comment' comment.id %}"><i class='fas fa-trash-alt'></i></a>
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+
+        <form class="comment-input" action="{% url 'comment' post.id %}" method='POST'>
+          {% csrf_token %}
+          <input required type="text" name="comment-input" id="" placeholder="Add a comment">
+          <button>Post</button>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  {% endblock content %}

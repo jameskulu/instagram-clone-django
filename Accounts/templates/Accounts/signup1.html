@@ -1,0 +1,44 @@
+{% load widget_tweaks %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Jistagram</title>
+  <script src="https://kit.fontawesome.com/ca6a0dd669.js"></script>
+  <link rel="stylesheet" href=" {% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+  <div class="login-header">
+    <img src="{% static 'images/logo.PNG' %}" alt="">
+  </div>
+
+  <form class="signup-body" method="POST">
+    {% csrf_token %}
+    {% render_field form.first_name class="signup-input" placeholder="First Name"%}
+    {% render_field form.last_name class="signup-input" placeholder="Last Name"%}
+    {% render_field form.username class="signup-input" placeholder="Username"%}
+    {% if form.errors %}
+    <span>{{form.errors.username}}</span>
+    {% endif %}
+    {% render_field form.email class="signup-input" placeholder="Email"%}
+    {% render_field form.password1 class="signup-input" placeholder="Password"%}
+    {% render_field form.password2 class="signup-input" placeholder="Confirm Password"%}
+    {% if form.errors %}
+    <span>{{form.errors.password1}}</span>
+    <span>{{form.errors.password2}}</span>
+    {% endif %}
+    <button class="loginbtn">Sign up</button>
+    <a href="{% url 'login' %}">Already have an account?</a>
+  </form>
+
+
+
+</body>
+
+</html>

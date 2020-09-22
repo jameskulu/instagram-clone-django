@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="main-home">
+
+
+  <div class="posts infinite-container">
+
+    {% for post in all_posts %}
+    {% if not post.archive %}
+
+    {% include 'Post/single-post.html' %}
+
+    {% endif %}
+    {% endfor %}
+
+
+    {% if posts_count == 0 %}
+    <h1>No posts</h1>
+    <p>Follow some users to get posts</p>
+    {% endif %}
+    <!-- <h1 style='text-align: center;'>No Posts</h1> -->
+
+
+
+  </div>
+
+  <div class="people-you-may-know">
+    <h2>People you may know</h1>
+
+      <div class="people">
+
+        {% for user in users %}
+        {% if not user in request.user.userprofile.following.all %}
+        <div class="single-people">
+          <a href="{% url 'profile' user.userprofile.user %}"><img src="{{ user.userprofile.image.url }}" alt=""></a>
+          <a href="{% url 'profile' user.userprofile.user %}">
+            <h4>@{{ user.username }}</h4>
+          </a>
+          <form action="{% url 'follow-unfollow' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value='{{user.userprofile.id}}' name='follow-btn'>
+            <button style='background: none;
+              outline: none;
+              border: none;
+              color: blue;
+              cursor: pointer;'>Follow</button>
+          </form>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+  </div>
+</div>
+
+{% if all_posts.has_next %}
+<a class='infinite-more-link' href="?page={{ all_posts.next_page_number }}">Loading...</a>
+{% endif %}
+
+
+<script src="{% static 'scripts/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'scripts/infinite.min.js' %}"></script>
+<script>
+
+  var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0],
+
+    offset: 'bottom-in-view',
+
+    onBeforePageLoad: function () {
+      $('.loading').show();
+    },
+    onAfterPageLoad: function () {
+      $('.loading').hide();
+    }
+  });
+</script>
+
+{% endblock content %}

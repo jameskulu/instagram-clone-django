@@ -1,0 +1,45 @@
+{% load widget_tweaks %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Jistagram</title>
+  <script src="https://kit.fontawesome.com/ca6a0dd669.js"></script>
+  <link rel="stylesheet" href=" {% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+  <div class="login-header">
+    <img src="{% static 'images/logo.PNG' %}" alt="">
+  </div>
+
+
+  <!-- <input placeholder="Email" type="text">
+    <input placeholder="Password.." type="password" name="" id="">
+
+    <button>Log In</button> -->
+
+  <form class="login-body" method="POST">
+    {% csrf_token %}
+    {% render_field form.username placeholder="Email / Username" autocomplete="off" %}
+    {% render_field form.password placeholder="Password" autocomplete="off" %}
+    {% if form.errors %}
+    <span>{{ form.non_field_errors }}</span>
+    {% endif %}
+    <a href="">Forgot Password?</a>
+    <button type="submit" class="loginbtn">Login</button>
+    <a href="{% url 'signup' %}">Need an account?</a>
+  </form>
+
+
+
+
+
+</body>
+
+</html>
